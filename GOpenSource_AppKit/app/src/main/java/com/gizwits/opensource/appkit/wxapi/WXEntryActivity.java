@@ -11,7 +11,7 @@ import com.gizwits.gizwifisdk.log.SDKLog;
 import com.gizwits.opensource.appkit.CommonModule.GosBaseActivity;
 import com.gizwits.opensource.appkit.CommonModule.GosDeploy;
 import com.gizwits.opensource.appkit.UserModule.GosUserLoginActivity;
-import com.gizwits.opensource.appkit.utils.JsonUtils;
+//import com.gizwits.opensource.appkit.utils.JsonUtils;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
@@ -85,8 +85,8 @@ public class WXEntryActivity extends GosBaseActivity implements
 						+ code
 						+ "&grant_type=authorization_code";
 				try {
-					JSONObject jsonObject = JsonUtils
-							.initSSLWithHttpClinet(path);// 请求https连接并得到json结果
+					JSONObject jsonObject/* = JsonUtils
+							.initSSLWithHttpClinet(path)*/ = null;// 请求https连接并得到json结果
 					if (null != jsonObject) {
 						String openid = jsonObject.getString("openid")
 								.toString().trim();
