@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/width70"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width70">
+
+        <TextView
+            android:id="@+id/item_time_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/width10"
+            android:text="08:30"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize20" />
+
+        <TextView
+            android:id="@+id/item_temp_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/width15"
+            android:layout_marginTop="@dimen/width12"
+            android:layout_toRightOf="@id/item_time_txt"
+            android:text="制热/22℃"
+            android:textColor="@color/title_right_view_pressed"
+            android:textSize="@dimen/textsize17" />
+
+        <TextView
+            android:id="@+id/item_repeat_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/width10"
+            android:text="重复 周一 周二 周三 周四 周五 周六"
+            android:textColor="@color/title_right_view_default"
+            android:textSize="@dimen/textsize15" />
+
+        <ImageView
+            android:id="@+id/item_delete_bt"
+            android:layout_width="@dimen/width20"
+            android:layout_height="@dimen/width20"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/width10"
+            android:src="@drawable/time_delete" />
+
+        <thermostat.view.SlipButton
+            android:id="@+id/item_slip_button"
+            android:layout_width="@dimen/width50"
+            android:layout_height="@dimen/width20"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/width10"
+            android:layout_marginRight="@dimen/width20"
+            android:layout_toLeftOf="@id/item_delete_bt" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/title_right_view_pressed" />
+
+    </RelativeLayout>
+
+</LinearLayout>

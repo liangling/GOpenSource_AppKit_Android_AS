@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/action_bar_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width60"
+        android:layout_marginLeft="@dimen/width40"
+        android:layout_marginRight="@dimen/width40">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/setting_scene"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize18" />
+
+        <ImageView
+            android:layout_width="@dimen/width35"
+            android:layout_height="@dimen/width35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/width10"
+            android:src="@drawable/icon_down" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width1"
+        android:layout_marginLeft="@dimen/width30"
+        android:layout_marginRight="@dimen/width30"
+        android:background="@color/title_right_view_pressed" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width60"
+        android:layout_marginLeft="@dimen/width40"
+        android:layout_marginRight="@dimen/width40">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/setting_prompt"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize18" />
+
+        <thermostat.view.SlipButton
+            android:layout_width="@dimen/width50"
+            android:layout_height="@dimen/width20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width1"
+        android:layout_marginLeft="@dimen/width30"
+        android:layout_marginRight="@dimen/width30"
+        android:background="@color/title_right_view_pressed" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width60"
+        android:layout_marginLeft="@dimen/width40"
+        android:layout_marginRight="@dimen/width40">
+
+        <TextView
+            android:id="@+id/setting_time_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/setting_time"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize18" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/width30"
+            android:layout_toRightOf="@id/setting_time_txt"
+            android:text="15:30:02"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize25" />
+
+        <ImageView
+            android:layout_width="@dimen/width50"
+            android:layout_height="@dimen/width20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/bt_inspection" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width1"
+        android:layout_marginLeft="@dimen/width30"
+        android:layout_marginRight="@dimen/width30"
+        android:background="@color/title_right_view_pressed" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width60"
+        android:layout_marginLeft="@dimen/width40"
+        android:layout_marginRight="@dimen/width40">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/setting_response"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize18" />
+
+        <thermostat.view.SlipButton
+            android:layout_width="@dimen/width50"
+            android:layout_height="@dimen/width20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width1"
+        android:layout_marginLeft="@dimen/width30"
+        android:layout_marginRight="@dimen/width30"
+        android:background="@color/title_right_view_pressed" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width60"
+        android:layout_marginLeft="@dimen/width40"
+        android:layout_marginRight="@dimen/width40">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/setting_response_time"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize18" />
+
+        <ImageView
+            android:layout_width="@dimen/width35"
+            android:layout_height="@dimen/width35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/width10"
+            android:src="@drawable/icon_down" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width1"
+        android:layout_marginLeft="@dimen/width30"
+        android:layout_marginRight="@dimen/width30"
+        android:background="@color/title_right_view_pressed" />
+</LinearLayout>

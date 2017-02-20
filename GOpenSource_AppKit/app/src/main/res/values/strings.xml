@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="degree_celsius">℃</string>
+    <string name="mode_text">模式</string>
+    <string name="speed_text">风速</string>
+    <string name="switch_text">开关</string>
+    <string name="efficient_text">节能</string>
+    <string name="lock_text">锁定</string>
+    <string name="time_text">定时</string>
+    <string name="already_time_text">已定时刻</string>
+    <string name="edit_time_repeat">重复</string>
+    <string name="edit_time_mode">模式</string>
+    <string name="edit_time_temp">温度</string>
+    <string name="edit_time_speed">风速</string>
+    <string name="setting_scene">应用场景</string>
+    <string name="setting_prompt">在面板锁定时可以操作开关键</string>
+    <string name="setting_time">时间</string>
+    <string name="setting_response">人体智能感应</string>
+    <string name="setting_response_time">感应时间</string>
+</resources>
