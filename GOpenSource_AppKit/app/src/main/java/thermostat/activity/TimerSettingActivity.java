@@ -51,6 +51,7 @@ public class TimerSettingActivity extends Activity {
     }
 
     private void initData() {
+//        SchedulerCenter.getTimerList();
         timerListAdapter = new TimerListAdapter(this);
         timerListView.setAdapter(timerListAdapter);
     }

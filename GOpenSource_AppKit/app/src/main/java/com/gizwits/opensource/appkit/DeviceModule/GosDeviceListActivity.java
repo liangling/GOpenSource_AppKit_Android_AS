@@ -44,6 +44,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import thermostat.activity.TempControlActivity;
 import zxing.CaptureActivity;
 
 @SuppressLint("HandlerLeak")
@@ -202,7 +204,7 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity
 
 			case TOCONTROL:
 				intent = new Intent(GosDeviceListActivity.this,
-						GosDeviceControlActivity.class);
+						TempControlActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putParcelable("GizWifiDevice", (GizWifiDevice) msg.obj);
 				intent.putExtras(bundle);

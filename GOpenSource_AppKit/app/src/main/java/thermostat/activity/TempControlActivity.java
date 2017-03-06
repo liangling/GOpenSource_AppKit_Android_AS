@@ -3,7 +3,10 @@ package thermostat.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,13 +16,64 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gizwits.gizwifisdk.api.GizDeviceScheduler;
+import com.gizwits.gizwifisdk.api.GizDeviceSchedulerCenter;
+import com.gizwits.gizwifisdk.api.GizWifiDevice;
+import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+import com.gizwits.gizwifisdk.listener.GizDeviceSchedulerCenterListener;
+import com.gizwits.opensource.appkit.CommonModule.GosBaseActivity;
 import com.gizwits.opensource.appkit.R;
+
+import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by ljy on 2017/2/16.
  */
 
 public class TempControlActivity extends Activity implements View.OnClickListener {
+
+   	/*
+	 * ===========================================================
+	 * 以下key值对应http://site.gizwits.com/v2/datapoint?product_key={productKey}
+	 * 中显示的数据点名称，sdk通过该名称作为json的key值来收发指令，demo中使用的key都是对应机智云实验室的微信宠物屋项目所用数据点
+	 * ===========================================================
+	 */
+    /** led红灯开关 0=关 1=开. */
+    //private static final String KEY_RED_SWITCH = "LED_OnOff";
+
+    /** 温控器 0=关 1=开. */
+    private static final String FANSWITCH = "switch";
+
+    /** 按键锁定 0=未锁定 1=锁定. */
+    private static final String KEY_LOCK = "lock_key";
+
+    /** 空调模式 .制冷 、送风、制热 */
+    private static final String KEY_MODE = "mode";
+
+    /**  风速 0.低风 1.中风 2.高风 3.自动. */
+    private static final String  KEY_SPEED = "fan_speed";
+
+    /** 室内温度  0~45. */
+    private static final String ROOM_TEMP = "room_temp";
+
+    /** 室内温度设定  5~30. */
+    private static final String SET_TEMP = "set_temp";
+
+
+
+    /** 红外探测 0无障碍 1有障碍. */
+    private static final String KEY_INFRARED = "Infrared";
+
+    /** 环境温度. */
+    private static final String KEY_TEMPLATE = "Temperature";
+
+    /** 环境湿度. */
+    private static final String KEY_HUMIDITY = "Humidity";
+
 
     private RelativeLayout topRel;
     private RelativeLayout popRel;
@@ -28,8 +82,13 @@ public class TempControlActivity extends Activity implements View.OnClickListene
     private ImageView minusBt, plusBt, modeBt, speedBt, switchBt, efficintBt, lockBt, timerBt;
 
     private boolean isOnline = true;
+    //开关状态
+    private boolean switch_on = false;
 
     private PopupWindow mModePop;
+    /** The GizWifiDevice device */
+    private GizWifiDevice device;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +103,18 @@ public class TempControlActivity extends Activity implements View.OnClickListene
         } else {
             changeToOffline();
         }
+        initDevice();
+    }
+    private void initDevice() {
+        Intent intent = getIntent();
+        device = (GizWifiDevice) intent.getParcelableExtra("GizWifiDevice");
+//        deviceStatu = new HashMap<String, Object>();
+
+//        if (TextUtils.isEmpty(device.getAlias())) {
+//            title = device.getProductName();
+//        } else {
+//            title = device.getAlias();
+//        }
     }
 
     private void initViews() {
@@ -93,18 +164,83 @@ public class TempControlActivity extends Activity implements View.OnClickListene
             case R.id.speed_bt:
                 break;
             case R.id.switch_bt:
+                sendSwitch();
                 break;
             case R.id.efficint_bt:
                 break;
             case R.id.lock_bt:
+
                 break;
             case R.id.timer_bt:
-                if (isOnline) {
-                    startActivity(new Intent(TempControlActivity.this, TimerSettingActivity.class));
-                }
+                addTimer();
+//                if (isOnline) {
+//                    startActivity(new Intent(TempControlActivity.this, TimerSettingActivity.class));
+//                }
                 break;
         }
     }
+    public void sendSwitch(){
+        try {
+            sendJson(FANSWITCH, false);
+            switch_on=!switch_on;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    private void getUserinfo(){
+//        SharedPreferences spf = getSharedPreferences(GosBaseActivity.SPF_Name, Context.MODE_PRIVATE);
+//        uid = spf.getString("Uid", "");
+//        token = spf.getString("Token", "");
+//    }
+
+    private void addTimer() {
+        GizDeviceSchedulerCenterListener mListener = new GizDeviceSchedulerCenterListener() {
+            @Override
+            public void didUpdateSchedulers(GizWifiErrorCode result, GizWifiDevice schedulerOwner, List<GizDeviceScheduler> schedulerList) {
+                if (result == GizWifiErrorCode.GIZ_SDK_SUCCESS) {
+                    Log.d("timer---->","success");
+                    // 定时任务创建成功
+                } else {
+                    Log.d("timer---->","failure");
+
+                    // 创建失败
+                }
+            }
+        };
+
+        // 设置定时任务监听
+        GizDeviceSchedulerCenter.setListener(mListener);
+
+        // 一次性定时任务，在2017年1月16日早上6点30分开灯
+        GizDeviceScheduler scheduler = new GizDeviceScheduler();
+        scheduler.setDate("2017-02-21");
+        scheduler.setTime("18:30");
+        scheduler.setRemark("开灯任务");
+        ConcurrentHashMap<String, Object> attrs = new ConcurrentHashMap<String, Object>();
+        attrs.put(FANSWITCH, true);
+        attrs.put(KEY_LOCK, 1);
+
+        scheduler.setAttrs(attrs);
+
+        SharedPreferences spf = getSharedPreferences(GosBaseActivity.SPF_Name, Context.MODE_PRIVATE);
+        String uid = spf.getString("Uid", "");
+        String token = spf.getString("Token", "");
+
+        // 创建设备的定时任务，mDevice为在设备列表中得到的设备对象
+        GizDeviceSchedulerCenter.createScheduler(uid,token , device, scheduler);
+
+
+
+    }
+
+    private void sendJson(String key, Object value) throws JSONException {
+        ConcurrentHashMap<String, Object> hashMap = new ConcurrentHashMap<String, Object>();
+        hashMap.put(key, value);
+        device.write(hashMap, 0);
+        Log.i("Apptest", hashMap.toString());
+    }
+
 
     /**
      * 设备掉电后显示状态
